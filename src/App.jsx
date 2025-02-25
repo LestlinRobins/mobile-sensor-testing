@@ -6,6 +6,7 @@ import { useEffect } from "react";
 
 function App() {
   const [acceleration, setAcceleration] = useState({ x: 0, y: 0, z: 0 });
+  const [alarm, setAlarm] = useState("");
 
   useEffect(() => {
     const handleMotion = (event) => {
@@ -48,8 +49,9 @@ function App() {
 
   useEffect(() => {
     const beep = () => {
-      const audio = new Audio("https://www.soundjay.com/button/beep-07.wav");
-      audio.play();
+      // const audio = new Audio("https://www.soundjay.com/button/beep-07.wav");
+      // audio.play();
+      setAlarm("Alarm sounded");
     };
 
     const handleMotion = (event) => {
@@ -83,6 +85,7 @@ function App() {
       <div>
         X: {acceleration.x}, Y: {acceleration.y}, Z: {acceleration.z}
       </div>
+      <p>{alarm}</p>
       <div className="p-4 text-center">
         <h1 className="text-xl font-bold mb-4">Live Gravity Sensor Data</h1>
         <p>Gravity X: {gravity.x} m/s²</p>
