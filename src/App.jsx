@@ -5,7 +5,6 @@ import "./App.css";
 import { useEffect } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
   const [acceleration, setAcceleration] = useState({ x: 0, y: 0, z: 0 });
 
   useEffect(() => {
@@ -53,14 +52,31 @@ function App() {
       audio.play();
     };
 
-    if (
-      Math.abs(acceleration.x) > 5 ||
-      Math.abs(acceleration.y) > 5 ||
-      Math.abs(acceleration.z) > 5
-    ) {
-      beep();
-    }
-  }, [acceleration]);
+    const handleMotion = (event) => {
+      if (event.acceleration) {
+        const newAcceleration = {
+          x: parseFloat(event.acceleration.x?.toFixed(2)),
+          y: parseFloat(event.acceleration.y?.toFixed(2)),
+          z: parseFloat(event.acceleration.z?.toFixed(2)),
+        };
+        setAcceleration(newAcceleration);
+
+        if (
+          Math.abs(newAcceleration.x) > 5 ||
+          Math.abs(newAcceleration.y) > 5 ||
+          Math.abs(newAcceleration.z) > 5
+        ) {
+          beep();
+        }
+      }
+    };
+
+    window.addEventListener("devicemotion", handleMotion);
+
+    return () => {
+      window.removeEventListener("devicemotion", handleMotion);
+    };
+  }, []);
   return (
     <>
       <div>HI</div>
