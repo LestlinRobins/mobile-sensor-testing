@@ -12,9 +12,9 @@ function App() {
     const handleMotion = (event) => {
       if (event.acceleration) {
         setAcceleration({
-          x: event.acceleration.x?.toFixed(2),
-          y: event.acceleration.y?.toFixed(2),
-          z: event.acceleration.z?.toFixed(2),
+          x: parseFloat(event.acceleration.x?.toFixed(2)),
+          y: parseFloat(event.acceleration.y?.toFixed(2)),
+          z: parseFloat(event.acceleration.z?.toFixed(2)),
         });
       }
     };
@@ -33,9 +33,9 @@ function App() {
         const sensor = new GravitySensor({ frequency: 60 });
         sensor.addEventListener("reading", () => {
           setGravity({
-            x: sensor.x?.toFixed(2),
-            y: sensor.y?.toFixed(2),
-            z: sensor.z?.toFixed(2),
+            x: parseFloat(sensor.x?.toFixed(2)),
+            y: parseFloat(sensor.y?.toFixed(2)),
+            z: parseFloat(sensor.z?.toFixed(2)),
           });
         });
         sensor.start();
