@@ -46,6 +46,17 @@ function App() {
       console.warn("Gravity Sensor API not supported in this browser.");
     }
   }, []);
+
+  useEffect(() => {
+    const beep = () => {
+      const audio = new Audio("https://www.soundjay.com/button/beep-07.wav");
+      audio.play();
+    };
+
+    if (acceleration.x > 5 || acceleration.y > 5 || acceleration.z > 5) {
+      beep();
+    }
+  }, [acceleration]);
   return (
     <>
       <div>HI</div>
