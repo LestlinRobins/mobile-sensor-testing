@@ -53,7 +53,11 @@ function App() {
       audio.play();
     };
 
-    if (acceleration.x > 5 || acceleration.y > 5 || acceleration.z > 5) {
+    if (
+      Math.abs(acceleration.x) > 5 ||
+      Math.abs(acceleration.y) > 5 ||
+      Math.abs(acceleration.z) > 5
+    ) {
       beep();
     }
   }, [acceleration]);
