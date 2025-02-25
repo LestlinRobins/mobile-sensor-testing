@@ -81,7 +81,7 @@ function App() {
   }, []);
   return (
     <>
-      <div>HI</div>
+      <div>HI there</div>
       <div>
         X: {acceleration.x}, Y: {acceleration.y}, Z: {acceleration.z}
       </div>
