@@ -17,9 +17,9 @@ function App() {
         setAcceleration(newAcceleration);
 
         if (
-          Math.abs(newAcceleration.x) > 5 ||
-          Math.abs(newAcceleration.y) > 5 ||
-          Math.abs(newAcceleration.z) > 5
+          Math.abs(newAcceleration.x) > 50 ||
+          Math.abs(newAcceleration.y) > 50 ||
+          Math.abs(newAcceleration.z) > 50
         ) {
           alert(
             "Sudden change detected! Current location: [Latitude, Longitude]"
