@@ -1,21 +1,31 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
 import { useEffect } from "react";
 
 function App() {
   const [acceleration, setAcceleration] = useState({ x: 0, y: 0, z: 0 });
   const [alarm, setAlarm] = useState("");
+  const [gravity, setGravity] = useState({ x: 0, y: 0, z: 0 });
 
   useEffect(() => {
     const handleMotion = (event) => {
       if (event.acceleration) {
-        setAcceleration({
+        const newAcceleration = {
           x: parseFloat(event.acceleration.x?.toFixed(2)),
           y: parseFloat(event.acceleration.y?.toFixed(2)),
           z: parseFloat(event.acceleration.z?.toFixed(2)),
-        });
+        };
+        setAcceleration(newAcceleration);
+
+        if (
+          Math.abs(newAcceleration.x) > 5 ||
+          Math.abs(newAcceleration.y) > 5 ||
+          Math.abs(newAcceleration.z) > 5
+        ) {
+          alert(
+            "Sudden change detected! Current location: [Latitude, Longitude]"
+          );
+          setAlarm("Alarm sounded");
+        }
       }
     };
 
@@ -25,7 +35,6 @@ function App() {
       window.removeEventListener("devicemotion", handleMotion);
     };
   }, []);
-  const [gravity, setGravity] = useState({ x: 0, y: 0, z: 0 });
 
   useEffect(() => {
     if ("GravitySensor" in window) {
@@ -45,39 +54,6 @@ function App() {
     } else {
       console.warn("Gravity Sensor API not supported in this browser.");
     }
-  }, []);
-
-  useEffect(() => {
-    const beep = () => {
-      // const audio = new Audio("https://www.soundjay.com/button/beep-07.wav");
-      // audio.play();
-      setAlarm("Alarm sounded");
-    };
-
-    const handleMotion = (event) => {
-      if (event.acceleration) {
-        const newAcceleration = {
-          x: parseFloat(event.acceleration.x?.toFixed(2)),
-          y: parseFloat(event.acceleration.y?.toFixed(2)),
-          z: parseFloat(event.acceleration.z?.toFixed(2)),
-        };
-        setAcceleration(newAcceleration);
-
-        if (
-          Math.abs(newAcceleration.x) > 5 ||
-          Math.abs(newAcceleration.y) > 5 ||
-          Math.abs(newAcceleration.z) > 5
-        ) {
-          beep();
-        }
-      }
-    };
-
-    window.addEventListener("devicemotion", handleMotion);
-
-    return () => {
-      window.removeEventListener("devicemotion", handleMotion);
-    };
   }, []);
   return (
     <>
