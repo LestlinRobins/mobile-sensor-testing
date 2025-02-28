@@ -21,8 +21,15 @@ function App() {
           Math.abs(newAcceleration.y) > 50 ||
           Math.abs(newAcceleration.z) > 50
         ) {
-          alert(
-            "Sudden change detected! Current location: [Latitude, Longitude]"
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              alert(
+                `Sudden change detected! Current location: Latitude ${position.coords.latitude}, Longitude ${position.coords.longitude}`
+              );
+            },
+            (error) => {
+              console.error("Error getting location:", error);
+            }
           );
           setAlarm("Alarm sounded");
         }
