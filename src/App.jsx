@@ -17,9 +17,9 @@ function App() {
         setAcceleration(newAcceleration);
 
         if (
-          Math.abs(newAcceleration.x) > 50 ||
-          Math.abs(newAcceleration.y) > 50 ||
-          Math.abs(newAcceleration.z) > 50
+          Math.abs(newAcceleration.x) > 25 ||
+          Math.abs(newAcceleration.y) > 25 ||
+          Math.abs(newAcceleration.z) > 25
         ) {
           navigator.geolocation.getCurrentPosition(
             (position) => {
